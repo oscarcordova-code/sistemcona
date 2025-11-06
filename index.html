@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Escolar</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- Login Estudiante -->
+        <div id="studentLogin" class="page active">
+            <div class="login-page">
+                <div class="header">
+                    <h1>Acceso Estudiantil</h1>
+                    <p>Ingresa tu matricula para acceder</p>
+                </div>
+                <div class="form-group">
+                    <label for="studentId">Matrícula</label>
+                    <input type="text" id="studentId" placeholder="Ingresa tu matrícula">
+                </div>
+                <div class="form-group">
+                    <label for="studentPassword">Contraseña</label>
+                    <input type="password" id="studentPassword" placeholder="Ingresa tu contraseña">
+                </div>
+                <button class="btn" onclick="loginStudent()">Iniciar Sesión</button>
+                <div class="link" onclick="showPage('studentRegister')">
+                    ¿Primera vez? Regístrate aquí
+                </div>
+                <div class="link" onclick="showPage('teacherLogin')">
+                    ¿Eres docente? Da click aquí
+                </div>
+            </div>
+        </div>
+
+        <!-- Registro Estudiante -->
+        <div id="studentRegister" class="page">
+            <div class="login-page">
+                <div class="header">
+                    <h1>Registro de Estudiante</h1>
+                    <p>Crea tu cuenta para acceder al sistema</p>
+                </div>
+                <div class="form-group">
+                    <label for="regStudentId">Matrícula</label>
+                    <input type="text" id="regStudentId" placeholder="Ingresa tu matrícula">
+                </div>
+                <div class="form-group">
+                    <label for="regStudentPassword">Contraseña</label>
+                    <input type="password" id="regStudentPassword"
+                        placeholder="Crea una contraseña (mín. 6 caracteres)">
+                </div>
+                <div class="form-group">
+                    <label for="regStudentPassword2">Confirmar Contraseña</label>
+                    <input type="password" id="regStudentPassword2" placeholder="Confirma tu contraseña">
+                </div>
+                <button class="btn" onclick="registerStudent()">Registrarse</button>
+                <div class="link" onclick="showPage('studentLogin')">
+                    ¿Ya tienes cuenta? Inicia sesión
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Docente -->
+        <div id="teacherLogin" class="page">
+            <div class="login-page">
+                <div class="header">
+                    <h1>Portal Docente</h1>
+                    <p>Acceso exclusivo para profesores</p>
+                </div>
+                <div class="form-group">
+                    <label for="teacherId">ID de Empleado</label>
+                    <input type="text" id="teacherId" placeholder="Ingresa tu ID">
+                </div>
+                <div class="form-group">
+                    <label for="teacherPassword">Contraseña</label>
+                    <input type="password" id="teacherPassword" placeholder="Ingresa tu contraseña">
+                </div>
+                <button class="btn" onclick="loginTeacher()">Iniciar Sesión</button>
+                <div class="link" onclick="showPage('teacherRegister')">
+                    ¿Primera vez? Regístrate aquí
+                </div>
+                <div class="link" onclick="showPage('studentLogin')">
+                    ¿Eres estudiante? Da click aquí
+                </div>
+            </div>
+        </div>
+
+        <!-- Registro Docente -->
+        <div id="teacherRegister" class="page">
+            <div class="login-page">
+                <div class="header">
+                    <h1>Registro de Docente</h1>
+                    <p>Crea tu cuenta de docente</p>
+                </div>
+                <div class="form-group">
+                    <label for="regTeacherId">ID de Empleado</label>
+                    <input type="text" id="regTeacherId" placeholder="Ej: DOC-001">
+                </div>
+                <div class="form-group">
+                    <label for="regTeacherName">Nombre Completo</label>
+                    <input type="text" id="regTeacherName" placeholder="Ingresa tu nombre completo">
+                </div>
+                <div class="form-group">
+                    <label for="regTeacherPassword">Contraseña</label>
+                    <input type="password" id="regTeacherPassword"
+                        placeholder="Crea una contraseña (mín. 6 caracteres)">
+                </div>
+                <div class="form-group">
+                    <label for="regTeacherPassword2">Confirmar Contraseña</label>
+                    <input type="password" id="regTeacherPassword2" placeholder="Confirma tu contraseña">
+                </div>
+                <button class="btn" onclick="registerTeacher()">Registrarse</button>
+                <div class="link" onclick="showPage('teacherLogin')">
+                    ¿Ya tienes cuenta? Inicia sesión
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Estudiante -->
+        <div id="studentDashboard" class="page">
+            <div class="nav-bar">
+                <h2>Portal Estudiantil</h2>
+                <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+            </div>
+            <div class="content">
+                <div class="tabs">
+                    <button class="tab active" onclick="switchStudentTab(event, 'profile')">Perfil</button>
+                    <button class="tab" onclick="switchStudentTab(event, 'attendance')">Faltas</button>
+                    <button class="tab" onclick="switchStudentTab(event, 'reports')">Reportes</button>
+                    <button class="tab" onclick="switchStudentTab(event, 'settings')">Configuración</button>
+                </div>
+
+                <div id="studentProfile" class="tab-content active">
+                    <div class="card">
+                        <h3>Información Personal</h3>
+                        <div class="info-row">
+                            <span class="info-label">Nombre:</span>
+                            <span class="info-value" id="studentName"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Matrícula:</span>
+                            <span class="info-value" id="studentMatricula"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Teléfono:</span>
+                            <span class="info-value" id="studentTelefono"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Grupo:</span>
+                            <span class="info-value">502CDIA</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Semestre:</span>
+                            <span class="info-value">5to Semestre</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="studentAttendance" class="tab-content">
+                    <div class="alert alert-warning" id="attendanceAlert" style="display: none;">
+                        Advertencia!! Tienes <span id="totalFaltas">0</span> faltas registradas.
+                    </div>
+                    <div class="card">
+                        <h3>Historial de Faltas</h3>
+                        <div id="studentFaltasList"></div>
+                    </div>
+                </div>
+
+                <div id="studentReports" class="tab-content">
+                    <div class="card">
+                        <h3>Historial de Reportes</h3>
+                        <div id="studentReportsList"></div>
+                    </div>
+                </div>
+
+                <div id="studentSettings" class="tab-content">
+                    <div class="card">
+                        <h3>Cambiar Contraseña</h3>
+                        <div class="form-group">
+                            <label for="currentPassword">Contraseña Actual</label>
+                            <input type="password" id="currentPassword" placeholder="Ingresa tu contraseña actual">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Nueva Contraseña</label>
+                            <input type="password" id="newPassword" placeholder="Ingresa tu nueva contraseña">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmNewPassword">Confirmar Nueva Contraseña</label>
+                            <input type="password" id="confirmNewPassword" placeholder="Confirma tu nueva contraseña">
+                        </div>
+                        <button class="btn" onclick="changeStudentPassword()">Cambiar Contraseña</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Docente -->
+        <div id="teacherDashboard" class="page">
+            <div class="nav-bar">
+                <h2>Portal Docente</h2>
+                <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+            </div>
+            <div class="content">
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTeacherTab(event, 'groups')">Mis Grupos</button>
+                    <button class="tab" onclick="switchTeacherTab(event, 'teacherSettings')">Configuración</button>
+                </div>
+
+                <div id="teacherGroups" class="tab-content active">
+                    <h2 style="margin-bottom: 20px;">Mis Grupos</h2>
+                    <div id="groupsList"></div>
+                </div>
+
+                <div id="teacherSettings" class="tab-content">
+                    <div class="card">
+                        <h3>Cambiar Contraseña</h3>
+                        <div class="form-group">
+                            <label for="teacherCurrentPassword">Contraseña Actual</label>
+                            <input type="password" id="teacherCurrentPassword"
+                                placeholder="Ingresa tu contraseña actual">
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherNewPassword">Nueva Contraseña</label>
+                            <input type="password" id="teacherNewPassword" placeholder="Ingresa tu nueva contraseña">
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherConfirmNewPassword">Confirmar Nueva Contraseña</label>
+                            <input type="password" id="teacherConfirmNewPassword"
+                                placeholder="Confirma tu nueva contraseña">
+                        </div>
+                        <button class="btn" onclick="changeTeacherPassword()">Cambiar Contraseña</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pase de Lista -->
+        <div id="attendancePage" class="page">
+            <div class="nav-bar">
+                <h2 id="attendanceTitle">Pase de Lista</h2>
+                <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+            </div>
+            <div class="content">
+                <button class="btn-back" onclick="backToGroups()">← Volver a Grupos</button>
+
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-number" id="totalStudents">0</div>
+                        <div class="stat-label">Total Alumnos</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                        <div class="stat-number" id="presentCount">0</div>
+                        <div class="stat-label">Presentes</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%);">
+                        <div class="stat-number" id="absentCount">0</div>
+                        <div class="stat-label">Ausentes</div>
+                    </div>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="searchStudent" placeholder="🔍 Buscar alumno..." onkeyup="filterStudents()">
+                </div>
+
+                <div class="student-list" id="attendanceList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Reportes -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrar Reporte</h2>
+                <p id="reportStudentName" style="color: #666;"></p>
+            </div>
+            <div class="form-group">
+                <label for="reportType">Tipo de Reporte</label>
+                <select id="reportType">
+                    <option value="Conducta">Conducta</option>
+                    <option value="Académico">Académico</option>
+                    <option value="Retraso">Retraso</option>
+                    <option value="Falta de Material">Falta de Material</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="reportDescription">Descripción</label>
+                <textarea id="reportDescription" placeholder="Describe el motivo del reporte..."></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn" onclick="saveReport()">Guardar Reporte</button>
+                <button class="btn" style="background: #6c757d;" onclick="closeReportModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</body>
